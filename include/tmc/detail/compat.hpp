@@ -105,6 +105,21 @@ static inline size_t TMC_ARM_CPU_FREQ() noexcept {
   return freq;
 }
 static inline const size_t TMC_CPU_FREQ = TMC_ARM_CPU_FREQ();
+#elif (defined(__powerpc64__) || defined(__PPC64__)) && (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__)
+#define TMC_CPU_PPC
+static inline void TMC_CPU_PAUSE() noexcept {
+  asm volatile("or 27,27,27");
+}
+static inline size_t TMC_CPU_TIMESTAMP() noexcept {
+  size_t tb;
+  asm volatile("mfspr %0, 268" : "=r"(tb));
+  return tb;
+}
+// POWER8/9 timebase runs at a fixed 512 MHz, independent of core
+// frequency (analogous to ARM's virtual counter).
+static inline const size_t TMC_CPU_FREQ = 512000000;
+#else
+#error "Unsupported CPU architecture"
 #endif
 
 // clang-format tries to collapse the pragmas into one line...
