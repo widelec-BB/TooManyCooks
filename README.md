@@ -146,6 +146,7 @@ MacOS:
 ### Supported Hardware
 - x86 (32- or 64-bit)
 - AArch64
+- ppc64le
 
 TooManyCooks is regularly tested on the following physical devices:
 - Intel i7 4770K
@@ -154,3 +155,4 @@ TooManyCooks is regularly tested on the following physical devices:
 - AMD EPYC 7742
 - Apple M2
 - Rockchip RK3588S (in a Khadas Edge2)
+- Talos II Workstation (only in little endian mode)
